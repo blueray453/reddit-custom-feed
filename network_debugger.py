@@ -1,5 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
+from selenium.common.exceptions import WebDriverException, InvalidSessionIdException
 import time
 import json
 import argparse
@@ -98,7 +99,7 @@ EXAMPLES:
   python network_debugger.py --url https://old.reddit.com/
 
   # Auto-save to file
-  python network_debugger.py --auto-save requests.json
+  python network_debugger.py --save requests.json
 
   # Quiet mode (less verbose output)
   python network_debugger.py --quiet
@@ -109,6 +110,7 @@ EXAMPLES:
 KEYBOARD SHORTCUTS:
   Ctrl+Q        - Stop monitoring and exit
   Ctrl+C        - Stop monitoring and exit
+  Close Browser - Automatically stops and exits
         """)
 
     # Preset selection
@@ -146,7 +148,7 @@ KEYBOARD SHORTCUTS:
     parser.add_argument('--max-body', type=int, help='Maximum body length to display (in characters)')
 
     # Output options
-    parser.add_argument('--auto-save', metavar='FILENAME', help='Automatically save captured requests to file on exit')
+    parser.add_argument('--save', metavar='FILENAME', help='Save captured requests to file on exit (no prompt)')
 
     parser.add_argument('--quiet',
                         '-q',
@@ -213,7 +215,7 @@ def build_config_from_args(args):
     # Add command line specific options
     config['quiet'] = args.quiet
     config['minimal'] = args.minimal
-    config['auto_save'] = args.auto_save
+    config['save_file'] = args.save
     config['check_interval'] = args.check_interval
 
     return config
@@ -228,6 +230,15 @@ def initialize_driver(profile_path):
     options.profile = profile_path
     driver = webdriver.Firefox(options=options)
     return driver
+
+def is_driver_alive(driver):
+    """Check if the WebDriver session is still active."""
+    try:
+        # Try to get the current URL - this will fail if browser is closed
+        _ = driver.current_url
+        return True
+    except (WebDriverException, InvalidSessionIdException):
+        return False
 
 # ============================================================================
 # ENHANCED NETWORK STREAM MONITOR
@@ -369,6 +380,17 @@ def install_enhanced_monitor(driver, config):
 
     driver.execute_script(monitor_script)
 
+def save_captured_data(captured, filename):
+    """Save captured data to file."""
+    try:
+        with open(filename, 'w') as f:
+            json.dump(captured, f, indent=2)
+        print(f"💾 Saved to {filename}")
+        return True
+    except Exception as e:
+        print(f"❌ Failed to save file: {e}")
+        return False
+
 def stream_network_activity(driver, config):
     """
     Continuously stream network activity to console.
@@ -376,6 +398,8 @@ def stream_network_activity(driver, config):
     last_count = 0
     request_number = 0
     check_interval = config.get('check_interval', 0.5)
+    captured = []
+    browser_closed = False
 
     print("\n" + "=" * 50)
     print("🌊 STREAMING NETWORK ACTIVITY")
@@ -387,61 +411,63 @@ def stream_network_activity(driver, config):
         print("Mode: Quiet (headers only)")
     elif config.get('minimal'):
         print("Mode: Minimal (numbers and URLs only)")
-    print("Press Ctrl+Q or Ctrl+C to stop\n")
+    if config.get('save_file'):
+        print(f"Will save to: {config['save_file']}")
+    print("Press Ctrl+Q or Ctrl+C to stop (or just close the browser)\n")
 
     try:
         while True:
-            # Get captured requests
-            captured = driver.execute_script("return window.capturedRequests || [];")
+            # Check if browser is still alive
+            if not is_driver_alive(driver):
+                print("\n🚪 Browser closed by user")
+                browser_closed = True
+                break
 
-            # Print new requests
-            if len(captured) > last_count:
-                for req_resp in captured[last_count:]:
-                    # Filter for errors if preset is 'errors'
-                    if config.get('only_errors'):
-                        response = req_resp.get('response', {})
-                        status = response.get('status', 0)
-                        has_error = response.get('error') or (status >= 400)
-                        if not has_error:
-                            continue
+            try:
+                # Get captured requests
+                captured = driver.execute_script("return window.capturedRequests || [];")
 
-                    request_number += 1
+                # Print new requests
+                if len(captured) > last_count:
+                    for req_resp in captured[last_count:]:
+                        # Filter for errors if preset is 'errors'
+                        if config.get('only_errors'):
+                            response = req_resp.get('response', {})
+                            status = response.get('status', 0)
+                            has_error = response.get('error') or (status >= 400)
+                            if not has_error:
+                                continue
 
-                    if config.get('minimal'):
-                        print_minimal_request(req_resp, request_number)
-                    elif config.get('quiet'):
-                        print_quiet_request(req_resp, request_number, config)
-                    else:
-                        print_enhanced_request_response(req_resp, request_number, config)
+                        request_number += 1
 
-                last_count = len(captured)
+                        if config.get('minimal'):
+                            print_minimal_request(req_resp, request_number)
+                        elif config.get('quiet'):
+                            print_quiet_request(req_resp, request_number, config)
+                        else:
+                            print_enhanced_request_response(req_resp, request_number, config)
+
+                    last_count = len(captured)
+
+            except (WebDriverException, InvalidSessionIdException):
+                # Browser was closed
+                print("\n🚪 Browser closed by user")
+                browser_closed = True
+                break
 
             time.sleep(check_interval)
 
     except KeyboardInterrupt:
-        print("\n\n" + "=" * 50)
-        print(f"📊 SUMMARY: Captured {request_number} request/response pairs")
-        print("=" * 50)
+        print("\n\n⏹️  Stopped by user (Ctrl+C)")
 
-        # Auto-save if specified
-        if config.get('auto_save'):
-            if last_count > 0:
-                captured = driver.execute_script("return window.capturedRequests || [];")
-                with open(config['auto_save'], 'w') as f:
-                    json.dump(captured, f, indent=2)
-                print(f"💾 Auto-saved to {config['auto_save']}")
-        else:
-            # Ask to save
-            if last_count > 0:
-                save = input("\nSave captured data to file? (y/n): ").strip().lower()
-                if save == 'y':
-                    filename = input("Filename (default: network_stream.json): ").strip()
-                    filename = filename or "network_stream.json"
+    # Print summary
+    print("\n" + "=" * 50)
+    print(f"📊 SUMMARY: Captured {request_number} request/response pairs")
+    print("=" * 50)
 
-                    captured = driver.execute_script("return window.capturedRequests || [];")
-                    with open(filename, 'w') as f:
-                        json.dump(captured, f, indent=2)
-                    print(f"💾 Saved to {filename}")
+    # Save if --save was specified and we have data
+    if config.get('save_file') and len(captured) > 0:
+        save_captured_data(captured, config['save_file'])
 
 def print_minimal_request(req_resp, request_number):
     """Print minimal request info - just number and URL."""
@@ -642,9 +668,18 @@ def main():
         # Start streaming
         stream_network_activity(driver, config)
 
+    except Exception as e:
+        # Only show error if it's not a session/connection error
+        if not isinstance(e, (WebDriverException, InvalidSessionIdException)):
+            print(f"\n❌ Error: {e}")
     finally:
-        driver.quit()
-        print("\n✅ Browser closed")
+        # Try to quit driver, but don't fail if browser already closed
+        try:
+            if is_driver_alive(driver):
+                driver.quit()
+        except:
+            pass
+        print("👋 Exited cleanly")
 
 if __name__ == "__main__":
     main()
