@@ -1,0 +1,348 @@
+= Custom Feeds
+
+.Create Custom Feed
+Intercepted Request: /svc/shreddit/graphql concat:857:11160
+  Method: POST concat:857:11160
+  Body: {
+  "operation": "CustomFeedCreate",
+  "variables": {
+    "input": {
+      "displayName": "Electronics",
+      "descriptionMd": "",
+      "visibility": "PUBLIC",
+      "subredditIds": []
+    }
+  },
+  "csrf_token": "hgfghgfhfghfgerffgewrtewtsdsadadsa"
+}
+
+see if we can pass subreddit ids here.
+
+.Delelete Custom Feed
+📡 Intercepted Request: /svc/shreddit/graphql concat:857:11160
+  Method: POST concat:857:11160
+  Body: {
+  "operation": "CustomFeedDelete",
+  "variables": {
+    "input": {
+      "label": "/user/x_implement/m/electronics/"
+    }
+  },
+  "csrf_token": "a59ceac64e69adea27a4d5233aacd611"
+}
+
+== Books
+
+r/52book
+r/bookbinding
+r/bookclub
+r/booklists
+r/bookporn
+r/booksuggestions
+r/childrensbooks
+r/FreeEBOOKS
+r/indesign
+r/librarians
+r/nonfictionbookclub
+r/nonfictionbooks
+r/nonfictionwriting
+r/printmaking
+r/whatsthatbook
+
+== Business
+
+r/advertising
+r/BehavioralEconomics
+r/business
+r/careeradvice
+r/careerguidance
+r/Economics
+r/economy
+r/Entrepreneur
+r/EntrepreneurRideAlong
+r/finance
+r/freelance
+r/juststart
+r/marketing
+r/negotiation
+r/options
+r/personalfinance
+r/ProductManagement
+r/RecruitCS
+r/recruiting
+r/recruitinghell
+r/sales
+r/slavelabour
+r/smallbusiness
+r/startups
+r/tax
+
+== BusinessHR
+
+r/ASkHR
+r/BehaviorAnalysis
+r/behaviordesign
+r/humanresources
+r/PersonalityPsychology
+r/psychometrics
+
+== BusinessOnline
+
+r/adops
+r/bigseo
+r/Blogging
+r/content_marketing
+r/copywriting
+r/digital_marketing
+r/ecommerce
+r/PPC
+r/SEO
+r/SEO_Digital_Marketing
+r/SEO_Infographics
+r/shopify
+r/socialmedia
+r/TechSEO
+r/webmarketing
+
+== DataScienceMathStat
+
+r/Analyst
+r/analytics
+r/APStudents
+r/artificial
+r/ArtificialInteligence
+r/AskStatistics
+r/businessanalysis
+r/BusinessIntelligence
+r/compsci
+r/computerscience
+r/ComputerSciStudents
+r/cs50
+r/cscareerquestions
+r/data
+r/dataengineering
+r/DataHoarder
+r/dataisbeautiful
+r/dataisugly
+r/datascience
+r/datasciencenews
+r/datasets
+r/learnmachinelearning
+r/learnmath
+r/LocalLLM
+r/LocalLLaMA
+r/MachineLearning
+r/math
+r/mathematics
+r/mathmemes
+r/opendata
+r/rstats
+r/SampleSize
+r/singularity
+r/statistics
+r/tableau
+
+
+== DesignUIUX
+
+r/Art
+r/ArtPorn
+r/assholedesign
+r/computergraphics
+r/conceptart
+r/CrappyDesign
+r/Design
+r/design_critiques
+r/designfreebie
+r/designinspire
+r/DesignPorn
+r/drawing
+r/edmproduction
+r/graphic_design
+r/identifythisfont
+r/Illustration
+r/IllustratorTuts
+r/logodesign
+r/MaterialDesign
+r/photoshop
+r/typography
+r/UI_Design
+r/userexperience
+r/UXDesign
+r/UXResearch
+r/web_design
+
+== Education
+
+r/education
+r/highereducation
+r/instructionaldesign
+r/PhD
+r/ScienceTeachers
+r/Teachers
+r/teaching
+r/Training
+
+== Electronics
+
+r/arduino
+r/ArduinoProjects
+r/AskElectronics
+r/CircuitBending
+r/diyelectronics
+r/ECE
+r/ElectricalEngineering
+r/ElectronicCircuits
+r/ElectronicComponents
+r/electronics
+r/embedded
+r/mathpics
+r/pihole
+r/PrintedCircuitBoard
+r/raspberry_pi
+r/RASPBERRY_PI_PROJECTS
+r/raspberrypi
+r/rfelectronics
+r/robotics
+
+== News
+
+r/news
+r/politics
+r/worldnews
+
+== PrivacyPiracyFreeSpeech
+
+r/BitChute
+r/brave_browser
+r/cardano
+r/darknetplan
+r/DecentralizedApps
+r/deepweb
+r/dtube
+r/duckduckgo
+r/eos
+r/ethdev
+r/ethereum
+r/europrivacy
+r/firefox
+r/omise_go
+r/onions
+r/opendirectories
+r/Piracy
+r/PiratePets
+r/privacy
+r/privacytoolsIO
+r/signal
+r/tails
+r/thepiratebay
+r/TOR
+r/torrents
+r/tutanota
+r/xmrtrader
+
+== Psychology
+
+r/AcademicPsychology
+r/askpsychology
+r/psychology
+r/psychologyresearch
+r/psychologystudents
+
+== Security
+
+r/AskNetsec
+r/cissp
+r/computerforensics
+r/cybersecurity
+r/HackBloc
+r/hacking
+r/HowToHack
+r/masterhacker
+r/netsec
+r/netsec_news
+r/netsecstudents
+r/SecurityAnalysis
+
+== SecurityBreaches
+
+r/databreach
+r/DataBreaches
+r/pwned
+
+== SelfDevelopment
+
+r/confidence
+r/declutter
+r/findapath
+r/getdisciplined
+r/howtonotgiveafuck
+r/productivity
+r/quoteporn
+r/quotes
+r/selfhelp
+r/selfimprovement
+r/sociology
+r/ted
+r/transhumanism
+r/zen
+
+== Software&WebDev&DevOps
+
+r/algorithms
+r/badcode
+r/datastructures
+r/devops
+r/docker
+r/Frontend
+r/ProgrammerHumor
+r/programming
+r/programmingcirclejerk
+r/programminghorror
+r/webdev
+r/ansible
+r/aws
+r/kubernetes
+
+== SysAdmin&Linux&FOSS
+
+r/debian
+r/Fuchsia
+r/iiiiiiitttttttttttt
+r/linux
+r/linuxmemes
+r/linuxmint
+r/opensource
+r/selfhosted
+r/sysadmin
+r/Sysadminhumor
+r/talesfromcallcenters
+r/talesfromsecurity
+r/talesfromtechsupport
+r/TalesFromTheCustomer
+r/TalesFromTheFrontDesk
+r/TalesFromYourServer
+r/Ubuntu
+
+== ThoughtProvoking
+
+r/AskReddit
+r/dankmemes
+r/HolUp
+r/HumansBeingBros
+r/interestingasfuck
+r/LifeProTips
+r/memes
+r/nextfuckinglevel
+r/savedyouaclick
+r/Showerthoughts
+r/todayilearned
+r/UpliftingNews
+r/Whatcouldgowrong
+r/wholesomememes
+r/WinStupidPrizes
+r/youseeingthisshit
+r/YouShouldKnow
+
+
+
