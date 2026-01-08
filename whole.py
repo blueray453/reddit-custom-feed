@@ -54,6 +54,7 @@ FEEDS_DATA = {
         "ElectricalEngineering", "ElectronicComponents", "electronics", "embedded", "mathpics", "pihole",
         "PrintedCircuitBoard", "raspberry_pi", "RASPBERRY_PI_PROJECTS", "raspberrypi", "rfelectronics", "robotics"
     ],
+    "Linux&FOSS": ["debian", "linux", "linuxmemes", "linuxmint", "opensource", "Ubuntu"],
     "News": ["news", "politics", "worldnews"],
     "PrivacyPiracyFreeSpeech": [
         "BitChute", "brave_browser", "cardano", "darknetplan", "DecentralizedApps", "deepweb", "dtube", "duckduckgo",
@@ -66,25 +67,25 @@ FEEDS_DATA = {
         "AskNetsec", "cissp", "computerforensics", "cybersecurity", "HackBloc", "hacking", "HowToHack", "masterhacker",
         "netsec", "netsec_news", "netsecstudents", "SecurityAnalysis"
     ],
+    "SecurityBreaches": ["databreach", "DataBreaches", "pwned"],
     "SelfDevelopment": [
         "confidence", "declutter", "findapath", "getdisciplined", "howtonotgiveafuck", "productivity", "quotes",
         "selfhelp", "selfimprovement", "sociology", "ted", "transhumanism", "zen"
+    ],
+    "Software&WebDev": [
+        "algorithms", "datastructures", "Frontend", "ProgrammerHumor", "programming", "programmingcirclejerk",
+        "programminghorror", "webdev"
+    ],
+    "SysAdmin&DevOps": [
+        "Fuchsia", "iiiiiiitttttttttttt", "selfhosted", "sysadmin", "Sysadminhumor", "talesfromcallcenters",
+        "talesfromsecurity", "talesfromtechsupport", "TalesFromTheCustomer", "TalesFromTheFrontDesk",
+        "TalesFromYourServer", "ansible", "aws", "kubernetes", "devops", "docker"
     ],
     "ThoughtProvoking": [
         "AskReddit", "dankmemes", "HolUp", "HumansBeingBros", "interestingasfuck", "LifeProTips", "memes",
         "nextfuckinglevel", "savedyouaclick", "Showerthoughts", "todayilearned", "UpliftingNews", "Whatcouldgowrong",
         "wholesomememes", "WinStupidPrizes", "youseeingthisshit", "YouShouldKnow"
     ],
-    "Software&WebDev&DevOps": [
-        "algorithms", "datastructures", "devops", "docker", "Frontend", "ProgrammerHumor", "programming",
-        "programmingcirclejerk", "programminghorror", "webdev", "ansible", "aws", "kubernetes"
-    ],
-    "SysAdmin&Linux&FOSS": [
-        "debian", "Fuchsia", "iiiiiiitttttttttttt", "linux", "linuxmemes", "linuxmint", "opensource", "selfhosted",
-        "sysadmin", "Sysadminhumor", "talesfromcallcenters", "talesfromsecurity", "talesfromtechsupport",
-        "TalesFromTheCustomer", "TalesFromTheFrontDesk", "TalesFromYourServer", "Ubuntu"
-    ],
-    "SecurityBreaches": ["databreach", "DataBreaches", "pwned"]
 }
 
 # ============================================================================

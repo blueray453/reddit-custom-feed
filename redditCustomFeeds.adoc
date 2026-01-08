@@ -287,12 +287,11 @@ r/ted
 r/transhumanism
 r/zen
 
-== Software&WebDev&DevOps
+== Software&WebDev
 
 r/algorithms
 r/badcode
 r/datastructures
-r/devops
 r/docker
 r/Frontend
 r/ProgrammerHumor
@@ -300,15 +299,16 @@ r/programming
 r/programmingcirclejerk
 r/programminghorror
 r/webdev
+
+== SysAdmin&Linux&FOSS&DevOps
+
 r/ansible
 r/aws
-r/kubernetes
-
-== SysAdmin&Linux&FOSS
-
 r/debian
+r/devops
 r/Fuchsia
 r/iiiiiiitttttttttttt
+r/kubernetes
 r/linux
 r/linuxmemes
 r/linuxmint
